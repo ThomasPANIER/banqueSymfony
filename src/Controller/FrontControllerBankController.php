@@ -11,7 +11,7 @@ class FrontControllerBankController extends AbstractController
     #[Route('/bank', name: 'bank')]
     public function index(): Response
     {
-        return $this->render('bank/index.html.twig', [
+        return $this->render('front_controller_bank/index.html.twig', [
             'controller_name' => 'FrontControllerBankController',
         ]);
     }
