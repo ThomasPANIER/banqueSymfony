@@ -3,26 +3,31 @@
 {% block title %} SymfoBank {% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Vos comptes bancaires</h1>
+    <h1 class="text-center mb-3">Vos comptes bancaires</h1>
     <div class="container-fluid">
         <div class="row">
             {% for account in accounts %}
-                <div class="col-md-4 my-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Compte</h5>
-                            <p class="card-text">Type de compte : {{account.accountName}}</p>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">N° de compte : {{'FR' ~ account.accountNumber}}</li>
-                                <li class="list-group-item">Date d'ouverture : {{account.openDate | date('d/m/Y')}}</li>
-                                <li class="list-group-item">Solde du compte : {{account.accountAmount}}</li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <a href="#" class="card-link btn btn-dark">Voir détails</a>
-                        </div>
-                    </div>
-                </div> 
+            <div class="card col-3 my-3 mx-5 ">
+                <div class="card-header">
+                    <h5 class="card-title">Compte</h5>
+                    {{account.accountName}}
+                </div>
+
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        
+                        <li class="list-group-item">N° de compte : {{'FR' ~ account.accountNumber}}</li>
+                    </ul>
+                    <hr>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Date d'ouverture : {{account.openDate | date('d/m/Y')}}</li>
+                        <li class="list-group-item">Solde du compte : {{account.accountAmount}}</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ path('singleAccount', {id: account.id}) }}" class="card-link btn btn-dark">Voir détails</a>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>

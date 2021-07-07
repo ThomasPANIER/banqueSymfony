@@ -67,5 +67,20 @@ class FrontControllerBankController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/index/account/{id}', name: 'singleAccount', requirements: ['id' => '\d+'])]
+    public function singleAccount(int $id): Response
+    {
+
+        // $account = new Account();
+        // $id = $account->setUser($this->getUser());
+        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
+        $account = $accountRepository->find($id);
+
+        
+        return $this->render('bank/singleAccount.html.twig', [
+            'account' => $account,
+        ]);
+    }
     
 }
