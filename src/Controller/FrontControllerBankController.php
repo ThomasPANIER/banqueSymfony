@@ -29,8 +29,17 @@ class FrontControllerBankController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
+
+        // $account = new Account();
+        // $id = $account->setUser($this->getUser());
+        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
+        $accounts = $accountRepository->findby(
+            ['user' => $this->getUser()],
+        );
+
+        
         return $this->render('bank/index.html.twig', [
-            'controller_name' => 'FrontControllerBankController',
+            'accounts' => $accounts,
         ]);
     }
 
