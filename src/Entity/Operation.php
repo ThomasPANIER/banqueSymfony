@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OperationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OperationRepository::class)
@@ -24,11 +25,13 @@ class Operation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $operation_name;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $operation_amount;
 
