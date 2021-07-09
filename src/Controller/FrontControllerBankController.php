@@ -97,7 +97,7 @@ class FrontControllerBankController extends AbstractController
     }
 
     #[Route('/index/account/{accountId}/credit', name: 'creditOperation', requirements: ['accountId' => '\d+'])]
-    public function creditOperation(Request $request, AccountRepository $accountRepository,  OperationRepository $operationRepository, int $accountId): Response
+    public function creditOperation(Request $request, AccountRepository $accountRepository, int $accountId): Response
     {
         $credit = new Operation();
         $form = $this->createForm(CreditType::class, $credit);
@@ -125,6 +125,39 @@ class FrontControllerBankController extends AbstractController
         }
 
         return $this->render('bank/creditOperation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/index/account/{accountId}/debit', name: 'debitOperation', requirements: ['accountId' => '\d+'])]
+    public function debitOperation(Request $request, AccountRepository $accountRepository, int $accountId): Response
+    {
+        $credit = new Operation();
+        $form = $this->createForm(CreditType::class, $credit);
+
+        $account = new Account();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $credit->setOperationType("Débit");
+            $credit->setOperationDate(new \DateTime());
+            $account = $accountRepository->find($accountId);
+            $credit->setAccount($account);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($credit);
+            $entityManager->flush();
+
+            $amountOpe = $credit->getOperationAmount($accountId);
+            $amountAccount = $account->getAccountAmount($accountId);
+            $newAmount = $account->setAccountAmount($amountAccount - $amountOpe);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush($newAmount);
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('bank/debitOperation.html.twig', [
             'form' => $form->createView()
         ]);
     }

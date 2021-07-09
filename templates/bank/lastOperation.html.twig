@@ -32,9 +32,9 @@
             <h5 class="text-center">Pas d'opération sur ce compte</h5>
             {% endif %}
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-center">
             <a href="{{ path('creditOperation', {accountId:account.id}) }}" class="card-link btn btn-dark mt-0">Crédit</a>
-            <a href="#" class="card-link btn btn-dark mt-0">Débit</a>
+            <a href="{{ path('debitOperation', {accountId:account.id}) }}" class="card-link btn btn-dark mt-0">Débit</a>
         </div>
     </div>
 </div>
