@@ -69,7 +69,7 @@ class FrontControllerBankController extends AbstractController
     {
         $operationRepository = $this->getDoctrine()->getRepository(Operation::class);
         $operation = $operationRepository->find($id);
-        
+
         $accountRepository = $this->getDoctrine()->getRepository(Account::class);
         $account = $accountRepository->find($id);
 

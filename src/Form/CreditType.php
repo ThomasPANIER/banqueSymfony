@@ -17,12 +17,10 @@ class CreditType extends AbstractType
             ->add('operation_name')
             ->add('operation_amount')
             //->add('operation_date')
-            //->add('account')
             ->add('enregistrer', SubmitType::class, [
                 'attr' => ['class' => 'bg-dark text-white'],
                 'row_attr' => ['class' => 'text-center']
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
